@@ -135,6 +135,17 @@ const useChat = create<ChatType>((set, get) => ({
       })
     );
   },
+  editUserPromptMessage: (newPrompt: string, index: number) => {
+    set(
+      produce((state: ChatType) => {
+        if (state.chats[index].role === "user") {
+          state.chats[index].content = newPrompt;
+        } else {
+          console.warn("The message at the provided index is not a user prompt.");
+        }
+      })
+    );
+  },
   addNewChat: () => {
     if (get().chats.length === 0) return;
     set(
